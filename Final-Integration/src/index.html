@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>GraFx Studio Integration</title>
+  </head>
+  <body>
+    <!-- Begin our top button bar-->
+    <div style="height: 10vh; display: flex; align-items: center;">
+      <div style="display: flex; justify-content: space-evenly; flex-grow: 1;">
+        <p><b>Current Frame ID:</b> <span id="frame-id"></span></p>
+        <p><b>Current Frame Name:</b> <span id="frame-name"></span></p>
+        <p><b>Current Frame Type:</b> <span id="frame-type"></span></p>
+      </div>
+
+      <div style="display: flex; gap: 4rem;">
+        <button class="cat-button" style="display: none;" onclick="randomCat()">Random Cat</button>
+        <button onclick="selectDocument()">Load Document</button>
+        <button onclick="downloadDocument()">Download Document</button>
+      </div>
+    </div>
+
+    <div id="editor" style="height: 88vh"></div>
+
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
