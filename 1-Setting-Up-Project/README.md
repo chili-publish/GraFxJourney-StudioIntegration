@@ -6,7 +6,9 @@ For this course, we will be using [Node.js](https://nodejs.org/) and using the N
 ### Initializing the project
 
 Now that we have Node installed the real fun can begin. To begin you can simply create a folder that will house your project. You can call this folder anything but I will call mine "GraFx Integration Course"
+
 ![A picture of a newly created folder](../assets/1-Setting-up-Project//folder.png)
+
 
 Next load up you favorite terminal emulation such as "Terminal" on MacOS or "cmd" on Windows and navigate to your newly created folder.
 
@@ -19,7 +21,7 @@ npm init -y
 ```
 
 Now we can install the two packages we need.
-#####Parcel
+##### Parcel
 Parcel is a JavaScript bundler that also includes a local development web server. This is great for our use case because it will take all the JavaScript we create in our integration _and_ the JavaScript we use from the GraFx Editor-SDK package and bundle them together for our integration to use.
 
 We can also run our integration on a local web server and see the changes to our website everytime we save our code due to a feature called "hot-reloading".
@@ -29,7 +31,7 @@ To install Parcel all we need to do is type this command
 npm install -D parcel
 ```
 
-#####GraFx Studio-SDK
+##### GraFx Studio-SDK
 The GraFx Studio-SDK is a package created by CHILI to make interacting with the Studio editor easy. This package handles the hard parts like communicating with the editor and lets you focus on getting your integration up and running in a fast and hassle-free manner.
 
 To install the GraFx Studio-SDK you simple type this command
@@ -37,14 +39,14 @@ To install the GraFx Studio-SDK you simple type this command
 npm install @chili-publish/studio-sdk
 ```
 
-###Creating the base files
+### Creating the base files
 So now that we have our dependency packages installed we can start actually creating our website files. We will just be making two files that will run our integration.
 
 First we will create a new folder in our project directory called `src`. We will put our source code in this folder that will run our website.
 
 Once we have our `src` folder created we can navigate to it and create our website files.
 
-#####index.html
+##### index.html
 Our first file will the the index.html file that will hold the HTML code for our integration. For now lets just use the bare minimum HTML code for a website that will say "Hello World"
 ```html
 <!DOCTYPE html>
@@ -61,7 +63,7 @@ Our first file will the the index.html file that will hold the HTML code for our
 </html>
 ```
 
-###Starting our local server
+### Starting our local server
 Now that we have the Node project initalized, our dependencies installed, and our source code created, we can test that our project is working as intended.
 
 We will start our website with this command by navigating to our directory in our terminal and running
