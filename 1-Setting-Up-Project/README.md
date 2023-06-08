@@ -5,7 +5,7 @@ For this course, we will be using [Node.js](https://nodejs.org/) and using the N
 
 ### Initializing the project
 
-Now that we have Node installed the real fun can begin. To begin you can simply create a folder that will house your project. You can call this folder anything but I will call mine "GraFx Integration Course"
+Now that we have Node installed the real fun can begin. To begin you can simply create a folder that will house your project. You can call this folder anything but I will call my folder "GraFx-Integration-Course"
 
 ![A picture of a newly created folder](../assets/1-Setting-up-Project//folder.png)
 
@@ -78,6 +78,45 @@ Then you can visit our newly created website by going to
 http://localhost:1234
 
 ![The hello world page on our website](../assets/1-Setting-up-Project/hello-world.png)
+
+### Creating our JavaScript file
+Our next step is to to create a file to hold the JavaScript code for our integration. This JavaScript file will import our Editor-SDK so that we can use the nice features the SDK provides us within our own JavaScript logic.
+
+Let's start by creating a index.js file in our `src` directory
+For now we can just include two lines in our `src/index.js` file
+```javascript
+import EditorSDK from "@chili-publish/studio-sdk";
+console.log("I'm alive!");
+```
+
+##### Linking our JavaScript to our index.html
+Next, we need to inform our index.html file about our fancy JavaScript to do this we will edit our index.html file and add a `<script>` tag.
+
+The body of our `index.html` file will now look like this
+```html
+<body>
+  <h1>Hello World</h1>
+  <script type="module" src="index.js"></script>
+</body>
+```
+
+_Note: We must state that `type="module"` because we will be using the JavaScript module syntax which is a way to break up JavaScript code into small re-usable pieces and import them in to other "modules" for use. In particular You can find our more at the Mozzila documentation page on [JavaScript Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)_
+
+If your server is still running from the previous lesson you can simply navigate to http://localhost:1234
+
+If the server is not running, simply start it up with
+```sh
+npx parcel src/index.html
+```
+
+Now the we should open "Developer Tools" in our browser (if you need help doing this you should google "how to open developers tools in [your browser here]")
+
+I will be using Chrome for this example and so by opening the "Console" tab in my developers tools and reloading my integration page I can see that our "I'm alive!" console log is firing.
+
+![The integration website showing our console.log function working](../assets/2-Loading-the-Editor/javascript-linked.png)
+
+**Wahoo!** this means that our custom JavaScript code is now being called from our integration :D
+
 
 
 
