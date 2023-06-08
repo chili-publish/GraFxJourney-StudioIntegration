@@ -31,12 +31,12 @@ This course is broken up in to sections. In each section we will add some additi
 ![A picture of the final integration](./assets/final-integration.png)
 The end result of this course will look like the image above. Our integration will have 4 buttons and a basic property panel to display information about the currently selected frame.
 
-#####Frame Properties
+##### Frame Properties
 - Currently selected frame ID
 - Currently selected frame name
 - Currently selected frame type
 
-#####The Buttons
+##### The Buttons
 - A button to load a Studio document in to the editor
 - A button to download the document currently in the editor
 - A button to place a new text frame in the document
