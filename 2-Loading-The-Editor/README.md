@@ -78,16 +78,16 @@ The editor `<div>` will get a `height` property of `90vh`
 ```
 
 
-We can save our file and the web browser should refesh. Now our editor is a little more visible.
+We can save our file and the web browser should refesh. Now our editor is a little more visible. The editor still does not show much because we have not loaded a document yet, but we will soon when we use the DocumentController in section 4.
 ![the styled editor loaded on the webpage](../assets/2-Loading-the-Editor/editor-styled.png)
 
 ##### The final index.html
 ```html
 <body>
-    <div style="height: 5vh; display: flex; justify-content: space-evenly; align-items: center;">
-      <h1>Hello World</h1>
-    </div>
-    <div style="height: 85vh" id="studio-editor"></div>
+  <div style="height: 5vh; display: flex; justify-content: space-evenly; align-items: center;">
+    <h1>Hello World</h1>
+  </div>
+  <div style="height: 85vh" id="studio-editor"></div>
   <script type="module" src="./index.js"></script>
 </body>
 ```
