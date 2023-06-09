@@ -95,6 +95,7 @@ We can save our file and the web browser should refesh. Now our editor is a litt
 In the next section, we will briefly touch on asynchronous workflows in JavaScript since the StudioSDK relies on them heavily. If you are already comfortable with asynchronous workflows then feel free to skip to section 4.
 
 [Section 3 - Asynchronous JavaScript](../3-Async-Javascript/README.md)
+
 [Section 4 - Working with Controllers](../4-Working-with-Controllers/README.md)
 
 
