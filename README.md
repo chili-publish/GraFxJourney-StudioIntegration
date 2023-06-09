@@ -76,5 +76,3 @@ If all goes well you should see something like this
 You can now visit the integration by going to
 http://localhost:1234
 
-![A picture of the final integration site](./assets/final-integration.png)
-
