@@ -11,6 +11,13 @@ function initEditor() {
 
 initEditor();
 
+const baseURL = createEnvironmentBaseURL({
+  type: "sandbox",
+  environment: "ft-nostress"
+})
+
+import { createEnvironmentBaseURL } from "./utils.js";
+
 
 
 
