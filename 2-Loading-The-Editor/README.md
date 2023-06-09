@@ -87,7 +87,9 @@ We can save our file and the web browser should refesh. Now our editor is a litt
   <div style="height: 5vh; display: flex; justify-content: space-evenly; align-items: center;">
     <h1>Hello World</h1>
   </div>
+
   <div style="height: 85vh" id="studio-editor"></div>
+
   <script type="module" src="./index.js"></script>
 </body>
 ```
