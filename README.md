@@ -64,7 +64,7 @@ npm install
 
 After these packages have finished installing you should be able to simply build and start your website.
 
-###### Starting the integration webserver
+##### Starting the integration webserver
 Using your favorite terminal make sure you navigate to the project directory (the "GraFx-Integration-Course folder) and then type the following command.
 ```sh
 npx parcel src/index.html

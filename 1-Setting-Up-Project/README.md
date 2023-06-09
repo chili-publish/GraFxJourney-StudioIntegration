@@ -55,7 +55,7 @@ Our first file will the the index.html file that will hold the HTML code for our
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>GraFx Studio Integration</title>
 </head>
 <body>
   <h1>Hello World</h1>
@@ -113,7 +113,7 @@ Now the we should open "Developer Tools" in our browser (if you need help doing 
 
 I will be using Chrome for this example and so by opening the "Console" tab in my developers tools and reloading my integration page I can see that our "I'm alive!" console log is firing.
 
-![The integration website showing our console.log function working](../assets/2-Loading-the-Editor/javascript-linked.png)
+![The integration website showing our console.log function working](../assets/1-Setting-up-Project/javascript-linked.png)
 
 **Wahoo!** this means that our custom JavaScript code is now being called from our integration :D
 
