@@ -117,6 +117,7 @@ I will be using Chrome for this example and so by opening the "Console" tab in m
 
 **Wahoo!** this means that our custom JavaScript code is now being called from our integration :D
 
+In the next section, we will get the editor loaded on our integration
 
-
+[Section 2 - Loading the Editor](../2-Loading-the-Editor/README.md)
 
