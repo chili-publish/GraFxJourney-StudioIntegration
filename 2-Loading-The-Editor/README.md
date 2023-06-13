@@ -68,7 +68,7 @@ We will wrap our `<h1>` in a `<div>` with a couple properties
 - `align-items: center` to center the items vertically in the div
 ```html
 <div style="height: 5vh; display: flex; justify-content: space-evenly; align-items: center;">
-      <h1>Hello World</h1>
+  <h1>Hello World</h1>
 </div>
 ```
 
