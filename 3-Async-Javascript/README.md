@@ -39,12 +39,6 @@ In traditional _synchronous_ JavaScript our code is going to take ~20 minutes to
 ### Introducing the _Promise_
 The core concept of asynchronous JavaScript is the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). A Promise is the return value of anything asynchronous. You can think of it like a promise in real life. Just like real life promises, they can be successful (fulfilled) or failed (rejected). Until you know if the other person (or function) upheld your promise it's just _pending_.
 
-So if our asynchronous function just returns a promise that it might go
-
-
-### Introducing the _Promise_
-The core concept of asynchronous JavaScript is the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). A Promise is the return value of anything asynchronous. You can think of it like a promise in real life. Just like real life promises, they can be successful (fulfilled) or failed (rejected). Until you know if the other person (or function) upheld your promise it's just _pending_.
-
 So if our asynchronous function just returns a promise that it might do something, then how do we know when it's done?
 
 ### _await_ syntax
