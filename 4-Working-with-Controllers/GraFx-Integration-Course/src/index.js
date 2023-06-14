@@ -1,4 +1,5 @@
 import StudioSDK from "@chili-publish/studio-sdk";
+import { docJSON } from "./default-doc.js"
 
 function initEditor() {
   const SDK = new StudioSDK({
@@ -9,4 +10,13 @@ function initEditor() {
   window.SDK = SDK;
 }
 
-initEditor();
+async function loadDocument() {
+  await window.SDK.document.loadDocument(docJSON);
+}
+
+async function startIntegration() {
+  initEditor();
+  await loadDocument();
+}
+
+startIntegration();
