@@ -34,8 +34,17 @@ window.downloadDocument = async function() {
   downloadAnchor.click();
 }
 
-window.addTextFrame = async function() {
-  await window.SDK.frame.addFrame("text", 10, 10, 100, 100);
+
+window.selectTool = async function() {
+  await window.SDK.tool.setSelectTool();
+}
+
+window.textTool = async function() {
+  await window.SDK.tool.setTextFrameTool();
+}
+
+window.handTool = async function() {
+  await window.SDK.tool.setHandTool();
 }
 
 initEditor();

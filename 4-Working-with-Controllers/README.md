@@ -108,7 +108,7 @@ async function getDocumentJSON() {
 }
 ```
 
-Then we will create out actual `downloadDocument()` function that will do some JavaScript magic to create a file for our document JSON and attach it to the `<a>` element we made earlier and then actually click the hidden element to download the file. This is a neat trick in JavaScript you can do to download a file with JavaScript but it isn't important to know for this course so you can just copy and paste the code.
+Then we will create out actual `downloadDocument()` function that will do some JavaScript magic to create a file for our document JSON and attach it to the `<a>` element we made earlier and then actually click the hidden element to download the file. This is a neat trick in JavaScript you can do to download a file with JavaScript but it isn't important to know for this course so you can just copy and paste the code. Your integration will probably send the JSON to your own endpoint or save the template to a GraFx environment.
 
 ```javascript
 window.downloadDocument = async function() {
@@ -123,9 +123,8 @@ window.downloadDocument = async function() {
 
 Hopefully your integration will now have a "Download Document" button that downloads the document JSON when you click it!
 
-
 ### Adding a frame
-Our last controller interaction will be a button that adds a text frame to our integration.
+Next let's add button that creates a text frame.
 
 To do this we can look at the Studio SDK documentation and find under our FrameController the [addFrame()](https://chili-publish.github.io/studio-sdk/classes/controllers_FrameController.FrameController.html#addFrame) method.
 
@@ -148,6 +147,48 @@ Then we can simply just add another `<button>` to our `index.html` calling that 
 
 Now when we click that button we should get a new text frame being added.
 ![new text frame](../assets/4-Working-with-Controllers/new-text-frame.png)
+
+What if we did not know where and how big we wanted our text box to be? I now present you, the `Text Frame Tool`
+
+### Changing Tools
+The [ToolController](https://chili-publish.github.io/studio-sdk/classes/controllers_ToolController.ToolController.html) can allow us to change the current mouse tool.
+
+To change to the text frame tool we can simply expose a function to our window and make a `Text Tool` button. While we are at it, let's include the hand tool and a way to get back to the normal selection tool in our `index.js`
+
+```javascript
+window.textTool = async function() {
+  await window.SDK.tool.setTextFrameTool();
+}
+
+window.handTool = async function() {
+  await window.SDK.tool.setHandTool();
+}
+
+window.selectTool = async function() {
+  await window.SDK.tool.setSelectTool();
+}
+```
+
+Then we can create our buttons in the `index.html` above our other buttons.
+```html
+<button onclick="selectTool()">Select Tool</button>
+<button onclick="handTool()">Hand Tool</button>
+<button onclick="textTool()">Text Tool</button>
+```
+
+Now on our integration we should have the ability to select our text tool and click then draw a text frame where we would like it. We can also play around with our hand tool and return back to the select.
+
+![text tool being used](../assets/4-Working-with-Controllers/text-tool.png)
+
+---
+This brings us to the end of section 4! Hopefully you now have a basic understanding of interacting with the Studio SDK via the Controllers. You should be able to find functions for the tasks you want to perform by looking through that [SDK Documentation](https://chili-publish.github.io/studio-sdk/) mentioned above.
+
+In our next section [Working with Connectors](../5-Working-with-Connectors/README.md) we will start using the GraFx Connectors to media to our integration.
+
+
+
+
+
 
 
 
