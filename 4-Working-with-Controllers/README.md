@@ -122,3 +122,34 @@ window.downloadDocument = async function() {
 ```
 
 Hopefully your integration will now have a "Download Document" button that downloads the document JSON when you click it!
+
+
+### Adding a frame
+Our last controller interaction will be a button that adds a text frame to our integration.
+
+To do this we can look at the Studio SDK documentation and find under our FrameController the [addFrame()](https://chili-publish.github.io/studio-sdk/classes/controllers_FrameController.FrameController.html#addFrame) method.
+
+![addFrame method documentation](../assets/4-Working-with-Controllers/method-addframe.png)
+
+This takes a [FrameTypeEnum](https://chili-publish.github.io/studio-sdk/enums/index.FrameTypeEnum.html) but as you can see clicking FrameTypeEnum in the documentation will let you know what valid types are part of that Enum. Add the moment there are "text", "shape" and "image" frame enum types.
+
+Let's create a simple function that creates a 100x100 text frame at the position `x:10 y:10`.
+```javascript
+window.addTextFrame = async function() {
+  await window.SDK.frame.addFrame("text", 10, 10, 100, 100);
+}
+```
+
+Then we can simply just add another `<button>` to our `index.html` calling that function.
+
+```html
+<button onclick="addTextFrame()">Add Frame</button>
+```
+
+Now when we click that button we should get a new text frame being added.
+![new text frame](../assets/4-Working-with-Controllers/new-text-frame.png)
+
+
+
+
+

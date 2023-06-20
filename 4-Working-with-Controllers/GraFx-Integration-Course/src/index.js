@@ -34,4 +34,8 @@ window.downloadDocument = async function() {
   downloadAnchor.click();
 }
 
+window.addTextFrame = async function() {
+  await window.SDK.frame.addFrame("text", 10, 10, 100, 100);
+}
+
 initEditor();
