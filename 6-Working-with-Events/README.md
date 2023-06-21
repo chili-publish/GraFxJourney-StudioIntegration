@@ -70,8 +70,159 @@ async function initEditor() {
 }
 
 function documentLoaded() {
-  console.log("Document Loaded)
+  console.log("DocumentLoaded event called this function")
 }
 ```
 
-If you now test your integration, you will find the console in the browser
+If you now test your integration, you will find in your browser dev console the log "DocumentLoaded event called this function".
+
+## Callbacks and Parameters
+The `onDocumentLoad` property expects a function of type:
+```ts
+() => void
+```
+
+This is a function signature which is using the [arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) syntax.
+
+A quick lesson on arrow functions is that a normal function expression looks like this:
+```ts
+function(parameter1, parameter2) {
+  return;
+}
+```
+This is a function which takes 2 parameters and returns `undefined`.
+
+We could write this same function in the arrow syntax:
+```ts
+(parameter1, parameter2) => {return;}
+```
+
+The arrow syntax is just a more compressed way to write function without a name.
+
+So for example, we could get rid of our `documentLoaded()` function and replace it with:
+
+```js
+async function initEditor() {
+  const SDK = new StudioSDK({
+    editorId: "studio-editor",
+    onDocumentLoaded: function() {
+      console.log("DocumentLoaded event called this function");
+    }
+  });
+
+  SDK.loadEditor();
+  window.SDK = SDK;
+
+  await loadDocument(defaultJSON);
+}
+
+// function documentLoaded() {
+//   console.log("DocumentLoaded event called this function")
+// }
+```
+
+Or we can make it more compact and use an arrow function:
+
+```js
+async function initEditor() {
+  const SDK = new StudioSDK({
+    editorId: "studio-editor",
+    onDocumentLoaded: () => {
+      console.log("DocumentLoaded event called this function");
+    }
+  });
+
+  SDK.loadEditor();
+  window.SDK = SDK;
+
+  await loadDocument(defaultJSON);
+}
+
+// function documentLoaded() {
+//   console.log("DocumentLoaded event called this function")
+// }
+```
+
+Either of the three ways gets you the same result, a function that is called when the DocumentLoaded event is fired.
+
+So the `onDocumentLoad` property expects a function of type:
+```ts
+() => void
+```
+
+Meaning it expects a function with zero parameters and that returns `undefined`. In TypeScript, which is what the SDK was written in, `void` is the same as `undefined`.
+
+All of the callback event properties on an object of [ConfigType](https://chili-publish.github.io/studio-sdk/types/index.ConfigType.html) have a type signature which tells you what type of function the property expects to call when the event is fired.
+
+For example, the `onSelectedToolChanged` property expects a function of type:
+```ts
+(tool: ToolType) => void
+```
+
+When the SelectedToolChanged event is fired, the function provided to `onSelectedToolChanged` will be called and the SDK will call that function by passing in a property of type `ToolType`.
+
+In TypeScript, which is what the SDK is written in, the semicolon `:` described the type of the property.
+
+If you are interested, you can read more about TypeScript types here: [everyday types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html).
+
+Now `ToolType` is a custom type, if you click on the [ToolType](https://chili-publish.github.io/studio-sdk/enums/index.ToolType.html) name in the documentation, it will take you to page to describe the type of type it is.
+
+It is a enumeration type, an enum.
+
+TypeScript is really cool, but unfortunately it can make things a bit more complicated if you are not use to typed languages.
+
+You can read about enums here: [enums](https://www.typescriptlang.org/docs/handbook/enums.html), but the basics is that is type that can only be specific values.
+
+In the case of [ToolType](https://chili-publish.github.io/studio-sdk/enums/index.ToolType.html) that would be: 
+- HAND
+- IMAGE_FRAME
+- SELECT
+- SHAPE_ELLIPSE
+- SHAPE_POLYGON
+- SHAPE_RECT
+- TEXT_FRAME
+- ZOOM
+
+On the [ToolType](https://chili-publish.github.io/studio-sdk/enums/index.ToolType.html) documentation page it even gives you the underline value of each options. HAND = "hand" and TEXT_FRAME = "textFrame".
+
+Again, this might seem complicated, but really all this documentation means is that if we want to write a function for `onSelectedToolChanged` we need to write a function that takes in one parameter and returns nothing.
+
+So we could write a function like:
+```js
+function(tool) {
+  console.log(tool);
+}
+```
+
+We can then add this function to when we create our `StudioSDK` class.
+
+```js
+async function initEditor() {
+  const SDK = new StudioSDK({
+    editorId: "studio-editor",
+    onDocumentLoaded: function() {
+      console.log("DocumentLoaded event called this function");
+    },
+    onSelectedToolChanged: function(tool) {
+      console.log(tool);
+    }
+  });
+
+  SDK.loadEditor();
+  window.SDK = SDK;
+
+  await loadDocument(defaultJSON);
+}
+```
+
+Now, if you test your integration and you press one of the buttons we added in section 4 to change the tool, you will get log in your browser dev console telling you what tool you selected.
+
+So if you click the the `Hand Tool` button you get the log:
+```
+hand
+```
+
+If you click the `Text Tool` button you get the log:
+```
+textFrame
+```
