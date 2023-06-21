@@ -12,11 +12,20 @@ async function initEditor() {
   await loadDocument(defaultJSON);
 }
 
-async function loadDocument(docJSON) {
+async function loadDocument(docJSON, authToken) {
   if (docJSON) {
     await window.SDK.document.loadDocument(docJSON);
   } else {
     await window.SDK.document.loadDocument("{}");
+  }
+
+  if (authToken) {
+    await window.SDK.connector.configure('grafx-media', async (configurator) => {
+      await configurator.setChiliToken(authToken);
+    });
+    await window.SDK.connector.configure('grafx-font', async (configurator) => {
+      await configurator.setChiliToken(authToken);
+    });
   }
 }
 
@@ -53,7 +62,7 @@ async function startIntegration() {
     headers: {
       "Content-Type": "application/json",
     },
-    mode: "no-cors",
+    mode: "no-",
     body: JSON.stringify({
       "grant_type": "client_credentials",
       "audience": "https://chiligrafx.com",
@@ -61,7 +70,7 @@ async function startIntegration() {
       "client_secret": "v3gW1YsrKzvlU-LSNMCcr8aP5kXVvEn0NydGvYhp9nB8fhnX6qh2DxEFfIwySm4c"
     })
   })
-  console.log(await response.json())
+  console.log(response)
   initEditor();
 }
 
