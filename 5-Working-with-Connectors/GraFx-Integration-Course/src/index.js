@@ -1,7 +1,7 @@
 import StudioSDK from "@chili-publish/studio-sdk";
 import { defaultJSON } from "./default-doc.js"
 
-async function initEditor() {
+async function initEditor(authToken) {
   const SDK = new StudioSDK({
     editorId: "studio-editor"
   });
@@ -9,7 +9,7 @@ async function initEditor() {
   SDK.loadEditor();
   window.SDK = SDK;
 
-  await loadDocument(defaultJSON);
+  await loadDocument(defaultJSON, authToken);
 }
 
 async function loadDocument(docJSON, authToken) {
