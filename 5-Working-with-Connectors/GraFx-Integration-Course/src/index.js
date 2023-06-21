@@ -1,5 +1,6 @@
 import StudioSDK from "@chili-publish/studio-sdk";
 import { defaultJSON } from "./default-doc.js"
+import { createEnvironmentBaseURL } from "./utils.js";
 
 async function initEditor(authToken) {
   const SDK = new StudioSDK({
@@ -13,6 +14,10 @@ async function initEditor(authToken) {
 }
 
 async function loadDocument(docJSON, authToken) {
+
+  const environmentAPI = createEnvironmentBaseURL({type: "production", environment: "ft-nostress"})
+  window.SDK.configuration.setValue("ENVIRONMENT_API", environmentAPI);
+
   if (docJSON) {
     await window.SDK.document.loadDocument(docJSON);
   } else {

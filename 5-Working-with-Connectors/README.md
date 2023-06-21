@@ -45,4 +45,29 @@ Essentially, we are calling the `configure` method and the first argument is wha
 
 We then proceed with the same steps for the GraFx Fonts connector, except that connector is called `grafx-fonts`.
 
-Now when we load a document in to the editor we will also establish connections to the
+There is one last step we need to setup before our connectors work, we need to tell the editor where our GraFx Environment API is located. We do this using the ConfigurationController. This controller allows you to store metadata on the editor session at runtime. This metadata is intended to be accessed from Studio Actions and Studio Connectors. So we will tell the editor where the GraFx Environment API is located, and the editor will store that information, then anytime the GraFx Media connector or GraFx Font connector needs to know where the the Environment API is located it can simply just ask the ConfigurationController.
+
+We will add this line at the top of our `loadDocument` function.
+```javascript
+  const environmentAPI = createEnvironmentBaseURL({type: "production", environment: "ft-nostress"})
+  window.SDK.configuration.setValue("ENVIRONMENT_API", environmentAPI);
+```
+
+Before we can set the GraFx Environment API Base URL that our connectors will use to talk to the environment. We thankfully have a helper function called "createEnvironmentBaseURL" that can generate this base API url for us. We will call this function with our environment type, `sandbox` or `production` and then the environment name. (ex: cp-gjd-940).
+
+Then we can set the `"ENVIRONMENT_API"` value in our configuration store to be that GraFx Environment Base URL, now our connectors know how to talk to your GraFx Environment.
+
+### Actually loading an image frame
+
+Now, for this course we are going to simply find an asset on our environment and load it in to an image frame. So first we will need to find an image on our environment that we can use. Navigate to your environment at [https://chiligrafx.com/](https://chiligrafx.com/)
+
+Click on the GraFx Media icon on the left hand panel to load up the available assets on your environment. If your environment has assets, you should see some folders you can browse through to find assets.
+
+![grafx media browser webpage](../assets/5-Working-with-Connectors/grafx-media.png)
+
+Once you have found an asset you want to display in an image frame, you can click the `...` button to bring up the option to view asset details.
+
+![grafx media asset icon](../assets/5-Working-with-Connectors/grafx-asset.png)
+
+In the asset details panel, you will see the ID for the asset. Copy this ID, we will use it to tell our GraFx Media connector which asset we want to use for our image frame.
+![grafx asset info panel](../assets/5-Working-with-Connectors/media-info.png)
