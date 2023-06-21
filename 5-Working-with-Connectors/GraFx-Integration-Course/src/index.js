@@ -56,22 +56,5 @@ window.handTool = async function() {
   await window.SDK.tool.setHandTool();
 }
 
-async function startIntegration() {
-  const response = await fetch("https://m2mlogin.chiligrafx-dev.com/oauth/token/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    mode: "no-",
-    body: JSON.stringify({
-      "grant_type": "client_credentials",
-      "audience": "https://chiligrafx.com",
-      "client_id": "NHaayW6Pu6BSZAAPNSO104MfufwlV7Z4",
-      "client_secret": "v3gW1YsrKzvlU-LSNMCcr8aP5kXVvEn0NydGvYhp9nB8fhnX6qh2DxEFfIwySm4c"
-    })
-  })
-  console.log(response)
-  initEditor();
-}
-
-startIntegration();
+const authToken = "<INSERT TOKEN HERE>"
+initEditor(authToken);

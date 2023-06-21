@@ -29,15 +29,20 @@ async function loadDocument(docJSON, authToken) {
   }
 
   if (authToken) {
-    await window.SDK.connector.configure('grafx-media', async (configurator) => {
+    await window.SDK.connector.configure('grafx-media', async function(configurator) {
       await configurator.setChiliToken(authToken);
     });
-    await window.SDK.connector.configure('grafx-font', async (configurator) => {
+    await window.SDK.connector.configure('grafx-font', async function(configurator) {
       await configurator.setChiliToken(authToken);
     });
   }
 }
 ```
 
-We are now optionally adding an `authToken` parameter to our `loadDocument` function, if we pass the function a token it will register the `grafx-media` connector and then `grafx-font` connector.
+We are now optionally adding an `authToken` parameter to our `loadDocument` function, if we pass the function a token it will register the `grafx-media` connector and then `grafx-font` connector. The way you initialize a connector within the StudioSDK is with the ConnectorController `configure` method. You can find the SDK documentation for this method [here] (https://chili-publish.github.io/studio-sdk/classes/controllers_ConnectorController.ConnectorController.html#configure)
 
+Essentially, we are calling the `configure` method and the first argument is what connector we want to configure. For example to use the `GraFx Media` connector we specify `grafx-media` as the first argument. The second argument is a little more tricky, because we don't actually configure the GraFx Media connector right away, we install need to tell it "how to configure itself" when it is ready. To do this we provide something called a "callback function" which is a function that the GraFx Media connector will use to configure itself when it is ready. So we provide a function as the second parameter that attaches the `authToken` to the connector when it is ready.
+
+We then proceed with the same steps for the GraFx Fonts connector, except that connector is called `grafx-fonts`.
+
+Now when we load a document in to the editor we will also establish connections to the
