@@ -5,7 +5,7 @@ _Please refer to the [Getting up and running](../README.md#getting-up-and-runnin
 
 ---
 
-## ???
+## Reacting vs Telling
 Everything we have done up to this point has been imperative where we tell Studio to do something via the SDK and it does what we tell it. With events, we will turn this process around and instead ask Studio to to tell us when it does something so we can react.
 
 This is how this section will differ from pervious sections:
@@ -226,3 +226,86 @@ If you click the `Text Tool` button you get the log:
 ```
 textFrame
 ```
+
+## Writing a reaction
+We can use our new found abilities to react to events to something useful.
+
+We have three buttons for three different tools. It looks like this in our `index.html` file:
+```html
+<button onclick="selectTool()">Select Tool</button>
+<button onclick="handTool()">Hand Tool</button>
+<button onclick="textTool()">Text Tool</button>
+```
+
+Let's add a ID to each button and update our `index.html` file making sure the ID contains the same string that would be found in the the enum `ToolType`. So in this case: "select", "hand", "textFrame".
+```html
+<button id="selectButton" onclick="selectTool()">Select Tool</button>
+<button id="handButton" onclick="handTool()">Hand Tool</button>
+<button id="textFrameButton" onclick="textTool()">Text Tool</button>
+```
+
+Now that our `index.html` is updated we can update our `onSelectedToolChanged` function in `index.js` to disable the button related to the tool that is selected.
+
+First, lets get all the button elements and place them in an array.
+
+```js
+async function initEditor() {
+  const SDK = new StudioSDK({
+    editorId: "studio-editor",
+    onDocumentLoaded: function() {
+      console.log("DocumentLoaded event called this function");
+    },
+    onSelectedToolChanged: function(tool) {
+      const buttonElements = [
+        document.getElementById("selectButton"),
+        document.getElementById("handButton"),
+        document.getElementById("textFrameButton"),
+      ]
+    }
+  });
+
+  SDK.loadEditor();
+  window.SDK = SDK;
+
+  await loadDocument(defaultJSON);
+}
+```
+
+Second, we will go through every element in the array and if the id of that element contains the string of our `tool` property we will set `disabled` to `true` otherwise we will set `disabled` to `false`.
+
+```js
+async function initEditor() {
+  const SDK = new StudioSDK({
+    editorId: "studio-editor",
+    onDocumentLoaded: function() {
+      console.log("DocumentLoaded event called this function");
+    },
+    onSelectedToolChanged: function(tool) {
+      const buttonElements = [
+        document.getElementById("selectButton"),
+        document.getElementById("handButton"),
+        document.getElementById("textFrameButton"),
+      ]
+
+      for (const element in buttonElements) {
+        if (element.id.includes(tool)) {
+          element.disabled = true;
+        }
+        else {
+          element.disabled = false;
+        }
+      }
+    }
+  });
+
+  SDK.loadEditor();
+  window.SDK = SDK;
+
+  await loadDocument(defaultJSON);
+}
+```
+
+Now we have a function that reacts when the SelectedToolChanged event is fired because we set that function to the `onSelectedToolChanged` property during the creation of our `StudioSDK` class.
+
+If you load up your integration, you will find that when you click any of the tool buttons, that specific button you clicked is disabled and all others are enabled.
+

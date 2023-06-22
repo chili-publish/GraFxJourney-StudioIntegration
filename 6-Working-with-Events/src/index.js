@@ -4,8 +4,26 @@ import { defaultJSON } from "./default-doc.js"
 async function initEditor() {
   const SDK = new StudioSDK({
     editorId: "studio-editor",
-    onDocumentLoaded: () => console.log("hi"),
-    onSelectedToolChanged: (text) => console.log(text),
+    onDocumentLoaded: function() {
+      console.log("DocumentLoaded event called this function");
+    },
+    onSelectedToolChanged: function(tool) {
+      const buttonElements = [
+        document.getElementById("selectButton"),
+        document.getElementById("handButton"),
+        document.getElementById("textFrameButton"),
+      ]
+
+      for (const element of buttonElements) {
+        console.log(element);
+        if (element.id.includes(tool)) {
+          element.disabled = true;
+        }
+        else {
+          element.disabled = false;
+        }
+      }
+    }
   });
 
   SDK.loadEditor();
