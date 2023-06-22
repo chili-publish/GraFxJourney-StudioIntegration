@@ -70,4 +70,5 @@ Once you have found an asset you want to display in an image frame, you can clic
 ![grafx media asset icon](../assets/5-Working-with-Connectors/grafx-asset.png)
 
 In the asset details panel, you will see the ID for the asset. Copy this ID, we will use it to tell our GraFx Media connector which asset we want to use for our image frame.
+
 ![grafx asset info panel](../assets/5-Working-with-Connectors/media-info.png)
