@@ -309,3 +309,7 @@ Now we have a function that reacts when the SelectedToolChanged event is fired b
 
 If you load up your integration, you will find that when you click any of the tool buttons, that specific button you clicked is disabled and all others are enabled.
 
+## Conclusions
+Now that you you know how to react to events, you can both react to Studio and tell Studio what you want to do. With these to abilities you are ready to build your own integration.
+
+In our next section [Final-Integration](../7-Final-Integration/README.md) you will find a complete example project which you play around with.
