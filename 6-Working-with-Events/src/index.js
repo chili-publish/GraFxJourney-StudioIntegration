@@ -1,7 +1,8 @@
 import StudioSDK from "@chili-publish/studio-sdk";
 import { defaultJSON } from "./default-doc.js"
+import { createEnvironmentBaseURL } from "./utils.js";
 
-async function initEditor() {
+async function initEditor(authToken) {
   const SDK = new StudioSDK({
     editorId: "studio-editor",
     onDocumentLoaded: function() {
@@ -29,14 +30,27 @@ async function initEditor() {
   SDK.loadEditor();
   window.SDK = SDK;
 
-  await loadDocument(defaultJSON);
+  await loadDocument(defaultJSON, authToken);
 }
 
-async function loadDocument(docJSON) {
+async function loadDocument(docJSON, authToken) {
+
+  const environmentAPI = createEnvironmentBaseURL({type: "production", environment: "ft-nostress"})
+  window.SDK.configuration.setValue("ENVIRONMENT_API", environmentAPI);
+
   if (docJSON) {
     await window.SDK.document.loadDocument(docJSON);
   } else {
     await window.SDK.document.loadDocument("{}");
+  }
+
+  if (authToken) {
+    await window.SDK.connector.configure('grafx-media', async (configurator) => {
+      await configurator.setChiliToken(authToken);
+    });
+    await window.SDK.connector.configure('grafx-font', async (configurator) => {
+      await configurator.setChiliToken(authToken);
+    });
   }
 }
 
@@ -67,5 +81,5 @@ window.handTool = async function() {
   await window.SDK.tool.setHandTool();
 }
 
-
-initEditor();
+const authToken = "<INSERT TOKEN HERE>"
+initEditor(authToken);
