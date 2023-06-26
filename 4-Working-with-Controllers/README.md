@@ -82,6 +82,14 @@ Now with the server running our integration page should look something like this
 
 ![Integration with default document loaded](../assets/4-Working-with-Controllers/document-loaded.png)
 
+##### Why does the image frame just say "running"?
+Chances are there is an image frame on the document that looks like this.
+![image frame not loading in editor](../assets/4-Working-with-Controllers/image-frame-loading.png)
+
+It will give you a message like "running" or "couldn't connect" instead of actually showing the image. No worries! This is expected. The reason for this is because the image in the document is accessed through the GraFx Media Connector and we currently have not configured the connector so it doesn't have the proper information to retrieve the image. We will cover this and get the image loading in section 5 - [Working with Connectors](../5-Working-with-Connectors/README.md)
+
+For now, we can safely ignore the "running" message until we hookup the media connector.
+
 ### Extracting the template JSON from the editor
 After the studio session is done, we probably want to get the underlying document JSON to save to our database or persist somewhere else. For this course we are going to create a "Download Template" button. Creating this download button will require some more advanced JavaScript. We will first add a hidden `<a>` element to our `index.html`. This is the element we will use to attach the document data to so we can download it.
 
