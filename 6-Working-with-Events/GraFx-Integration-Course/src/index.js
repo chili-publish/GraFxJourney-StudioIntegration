@@ -34,7 +34,7 @@ async function initEditor(authToken) {
 
 async function loadDocument(docJSON, authToken) {
 
-  const environmentAPI = window.SDK.utils.createEnvironmentBaseURL({type: "production", environment: "ft-nostress"})
+  const environmentAPI = window.SDK.utils.createEnvironmentBaseURL({type: "production", environment: "training-create-us23"})
   window.SDK.configuration.setValue("ENVIRONMENT_API", environmentAPI);
 
   if (docJSON) {

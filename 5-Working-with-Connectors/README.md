@@ -13,15 +13,13 @@ A connector in the literal sense is an implementation of a set of capabilities a
 ### Authentication
 The first thing we need to do is actually generate an authentication token. We need to do this because the GraFx Environment API that actually has the fonts and assets requires requests to be authenticated and authorized via a token. Therefore, we need to provide our GraFx-Media and GraFx-Fonts connector with our token so they can pull the required fonts and assets.
 
-First, we will need to generate a machine on our GraFx environment. You can do that following [this guide](#good-luck). Please note the `client id` and `client secret` you are provided when doing this, we will use them to generate our token.
-
-We are going to be generating the token on the front-end of our integration, please note that this is not how you should handle this for a production application. You do not want to expose the `client secret` in the JavaScript of your website, if you are going to maintain a secure integration, you should have your front-end integration reach out to a back-end for the token we will generate, or pre-process the page to provide the token. Nonetheless, for educational purposes we will be generating our token via a [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) request when our page loads to use for our GraFx Connectors.
+First, you will need to create a machine on your GraFx environment so that you have the required credentials to generate the authentication token. You can do that following [this guide](#good-luck). Please note the `client id` and `client secret` you are provided when doing this, we will use them to generate our token at a later step.
 
 ### Connecting the Connectors
-Now that we have our token, we can actually initialize our media and font connector when we load a document. To do this we will need to add some more logic to our `load()` function.
+Now that we have our token, we can actually initialize our media and font connector when we load a document. To do this we will need to add some more logic to our `loadDocument()` function.
 
 ```javascript
-async function load(docJSON, authToken) {
+async function loadDocument(docJSON, authToken) {
   if (docJSON) {
     await window.SDK.document.load(docJSON);
   } else {
@@ -49,13 +47,45 @@ There is one last step we need to setup before our connectors work, we need to t
 
 We will add this line at the top of our `loadDocument` function.
 ```javascript
-  const environmentAPI = window.SDK.utils.createEnvironmentBaseURL({type: "production", environment: "ft-nostress"})
+  const environmentAPI = window.SDK.utils.createEnvironmentBaseURL({type: "production", environment: "training-create-us23"})
   window.SDK.configuration.setValue("ENVIRONMENT_API", environmentAPI);
 ```
 
 Before we can set the GraFx Environment API Base URL that our connectors will use to talk to the environment. We have a helper function in our SDK UtilsController called "createEnvironmentBaseURL" that can help build the Environment API base url for us. We will call this function with our environment type, `sandbox` or `production` and the environment name (ex: cp-gjd-940).
 
 Then we can set the `"ENVIRONMENT_API"` value in our configuration store to be that GraFx Environment Base URL, now our connectors know how to talk to your GraFx Environment.
+
+We will also want to update our initEditor() function to accept the `authToken` parameter that we will also pass to to `loadDocument` function.
+
+```javascript
+async function initEditor(authToken) {
+  const SDK = new StudioSDK({
+    editorId: "studio-editor"
+  });
+
+  SDK.loadEditor();
+  window.SDK = SDK;
+
+  await loadDocument(defaultJSON, authToken);
+}
+```
+
+Now when we call the `initEditor()` function we need to pass the authentication token for our connectors to use. For your integration, you have a couple different options. To maintain a secure integration, you should ideally have the front-end of your integration reach out to a back-end for the token we will generate, or pre-process the page to provide the token.
+<!-- TODO(link to auth documentation on the GraFx website) -->
+
+For the CREATE 2023 Studio integration training, we will all be connecting to a specific environment to load the asset provided in the demo document so I will provide you with an access token.
+
+```
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InIzTzViUFFqV2pBWjNsd1pLd1FSaSJ9
+```
+
+At the bottom of our `index.js` file we can create a variable to hold this token and then pass the variable when we call `initEditor`
+
+``` javascript
+const authToken = "<INSERT TOKEN HERE>"
+initEditor(authToken);
+```
+
 
 ### Actually loading an image frame
 
@@ -72,3 +102,18 @@ Once you have found an asset you want to display in an image frame, you can clic
 In the asset details panel, you will see the ID for the asset. Copy this ID, we will use it to tell our GraFx Media connector which asset we want to use for our image frame.
 
 ![grafx asset info panel](../assets/5-Working-with-Connectors/media-info.png)
+
+Make note of that asset ID, this is how we will inform our GraFx Media connector which asset we want to use. For this course, we will just create a simple button, that when pressed will replace the image frame on the document with
+
+-- CREATE COURSE 23' --
+We will use asset ``
+
+---
+##### Setting the asset for an image frame
+Let's create a function to update the image on our document to a new image we provide it. We will be using a [FrameController]() method to find our image frame in the document and then the ConnectorController to update the image.
+
+```javascript
+window.updateImage = async function(frameName, assetID) {
+  window.
+}
+```
