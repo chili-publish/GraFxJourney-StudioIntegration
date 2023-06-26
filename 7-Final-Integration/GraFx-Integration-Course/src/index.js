@@ -47,7 +47,7 @@ const init = () => {
 
 const loadDocument = async (doc, authToken, baseURL) => {
   if (doc) {
-    await window.SDK.document.loadDocument(doc);
+    await window.SDK.document.load(doc);
 
     window.SDK.configuration.setValue(
       "ENVIRONMENT_API",
@@ -66,7 +66,7 @@ const loadDocument = async (doc, authToken, baseURL) => {
 };
 
 window.downloadDocument = async () => {
-  const documentJSON = (await SDK.document.getCurrentDocumentState()).data
+  const documentJSON = (await SDK.document.getCurrentState()).data
   const documentData = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(documentJSON));
   const downloadAnchor = document.getElementById('downloadAnchor');
   downloadAnchor.setAttribute("href", documentData);
@@ -84,7 +84,7 @@ window.selectDocument = async () => {
     reader.readAsText(file, 'UTF-8');
     reader.onload = (readerEvent) => {
         const content = JSON.parse(readerEvent.target.result);
-        loadDocument(content, token, baseURL);
+        load(content, token, baseURL);
     }
   }
 
@@ -99,7 +99,7 @@ window.randomCat = async () => {
   if (selectedFrame.frameType == "image") {
     /* Get frame dimensions */
     const index = Number(selectedFrame.frameId) - 1;
-    const dimensions = (await window.SDK.document.getCurrentDocumentState()).parsedData.layouts[0].frameProperties[index];
+    const dimensions = (await window.SDK.document.getCurrentState()).parsedData.layouts[0].frameProperties[index];
     console.log(dimensions);
 
     window.SDK.frame.setImageFromUrl(selectedFrame.frameId, `https://placekitten.com/${dimensions.width}/${dimensions.height}`);
@@ -114,7 +114,7 @@ const createImageURL = async (mediaID, mimeType = 'image/png') => {
 
 async function run() {
   init();
-  await loadDocument(doc, token, baseURL);
+  await load(doc, token, baseURL);
 }
 
 run();

@@ -46,15 +46,15 @@ Now in back in our `index.js` we can import this document JSON by adding an impo
 import { defaultJSON } from "./default-doc.js"
 ```
 
-##### Creating a loadDocument() function
+##### Creating a load() function
 Let's create a function that will take some JSON and load it in to the editor. This will be our first async function since under the hood, we are actually sending a message for the editor to do something, and the editor will response to us with a promise that it will do it, we will wait for that promise to actually happen using the `await` keyword.
 
 ```javascript
-async function loadDocument(docJSON) {
+async function load(docJSON) {
   if (docJSON) {
-    await window.SDK.document.loadDocument(docJSON);
+    await window.SDK.document.load(docJSON);
   } else {
-    await window.SDK.document.loadDocument("{}");
+    await window.SDK.document.load("{}");
   }
 }
 ```
@@ -94,7 +94,7 @@ Right below the editor `<div>` we can add this element
 Next let's create out button to trigger the JavaScript we will create. We will do this under the `<h1>` header we created earlier.
 ```html
 <h1>Hello World</h1>
-<button onclick="downloadDocument()">Download Document</button>
+<button onclick="download()">Download Document</button>
 ```
 
 Finally, we need the JavaScript to actually power this function! Lets switch back over to our `index.js` file and add some logic.
@@ -103,12 +103,12 @@ The primary function will be to actually extract the document JSON from the Docu
 
 ```javascript
 async function getDocumentJSON() {
-  const documentJSON = (await SDK.document.getCurrentDocumentState()).data
+  const documentJSON = (await SDK.document.getCurrentState()).data
   return JSON.stringify(documentJSON)
 }
 ```
 
-Then we will create out actual `downloadDocument()` function that will do some JavaScript magic to create a file for our document JSON and attach it to the `<a>` element we made earlier and then actually click the hidden element to download the file. This is a neat trick in JavaScript you can do to download a file with JavaScript but it isn't important to know for this course so you can just copy and paste the code. Your integration will probably send the JSON to your own endpoint or save the template to a GraFx environment.
+Then we will create out actual `download()` function that will do some JavaScript magic to create a file for our document JSON and attach it to the `<a>` element we made earlier and then actually click the hidden element to download the file. This is a neat trick in JavaScript you can do to download a file with JavaScript but it isn't important to know for this course so you can just copy and paste the code. Your integration will probably send the JSON to your own endpoint or save the template to a GraFx environment.
 
 ```javascript
 window.downloadDocument = async function() {

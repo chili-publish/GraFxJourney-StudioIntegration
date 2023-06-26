@@ -13,6 +13,6 @@
     "parcel": "^2.9.1"
   },
   "dependencies": {
-    "@chili-publish/studio-sdk": "^0.123.0"
+    "@chili-publish/studio-sdk": "^0.133.2"
   }
 }

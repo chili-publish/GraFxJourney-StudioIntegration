@@ -1,6 +1,5 @@
 import StudioSDK from "@chili-publish/studio-sdk";
 import { defaultJSON } from "./default-doc.js"
-import { createEnvironmentBaseURL } from "./utils.js";
 
 async function initEditor(authToken) {
   const SDK = new StudioSDK({
@@ -15,13 +14,13 @@ async function initEditor(authToken) {
 
 async function loadDocument(docJSON, authToken) {
 
-  const environmentAPI = createEnvironmentBaseURL({type: "production", environment: "ft-nostress"})
+  const environmentAPI = window.SDK.utils.createEnvironmentBaseURL({type: "production", environment: "ft-nostress"})
   window.SDK.configuration.setValue("ENVIRONMENT_API", environmentAPI);
 
   if (docJSON) {
-    await window.SDK.document.loadDocument(docJSON);
+    await window.SDK.document.load(docJSON);
   } else {
-    await window.SDK.document.loadDocument("{}");
+    await window.SDK.document.load("{}");
   }
 
   if (authToken) {
@@ -35,7 +34,7 @@ async function loadDocument(docJSON, authToken) {
 }
 
 async function getDocumentJSON() {
-  const documentJSON = (await SDK.document.getCurrentDocumentState()).data
+  const documentJSON = (await SDK.document.getCurrentState()).data
   return JSON.stringify(documentJSON)
 }
 
@@ -48,17 +47,8 @@ window.downloadDocument = async function() {
   downloadAnchor.click();
 }
 
-
-window.selectTool = async function() {
-  await window.SDK.tool.setSelectTool();
-}
-
-window.textTool = async function() {
-  await window.SDK.tool.setTextFrameTool();
-}
-
-window.handTool = async function() {
-  await window.SDK.tool.setHandTool();
+window.setTool = async function(tool) {
+  await window.SDK.tool.setTool(tool);
 }
 
 const authToken = "<INSERT TOKEN HERE>"

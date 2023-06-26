@@ -35,7 +35,7 @@ async function initEditor() {
   SDK.loadEditor();
   window.SDK = SDK;
 
-  await loadDocument(defaultJSON);
+  await load(defaultJSON);
 }
 ```
 
@@ -66,7 +66,7 @@ async function initEditor() {
   SDK.loadEditor();
   window.SDK = SDK;
 
-  await loadDocument(defaultJSON);
+  await load(defaultJSON);
 }
 
 function documentLoaded() {
@@ -113,7 +113,7 @@ async function initEditor() {
   SDK.loadEditor();
   window.SDK = SDK;
 
-  await loadDocument(defaultJSON);
+  await load(defaultJSON);
 }
 
 // function documentLoaded() {
@@ -135,7 +135,7 @@ async function initEditor() {
   SDK.loadEditor();
   window.SDK = SDK;
 
-  await loadDocument(defaultJSON);
+  await load(defaultJSON);
 }
 
 // function documentLoaded() {
@@ -211,7 +211,7 @@ async function initEditor() {
   SDK.loadEditor();
   window.SDK = SDK;
 
-  await loadDocument(defaultJSON);
+  await load(defaultJSON);
 }
 ```
 
@@ -232,16 +232,16 @@ We can use our new found abilities to react to events to something useful.
 
 We have three buttons for three different tools. It looks like this in our `index.html` file:
 ```html
-<button onclick="selectTool()">Select Tool</button>
-<button onclick="handTool()">Hand Tool</button>
-<button onclick="textTool()">Text Tool</button>
+<button onclick="setTool('select')">Select Tool</button>
+<button onclick="setTool('hand')">Hand Tool</button>
+<button onclick="setTool('text')">Text Tool</button>
 ```
 
 Let's add a ID to each button and update our `index.html` file making sure the ID contains the same string that would be found in the the enum `ToolType`. So in this case: "select", "hand", "textFrame".
 ```html
-<button id="selectButton" onclick="selectTool()">Select Tool</button>
-<button id="handButton" onclick="handTool()">Hand Tool</button>
-<button id="textFrameButton" onclick="textTool()">Text Tool</button>
+<button id="selectButton" onclick="setTool('select')">Select Tool</button>
+<button id="handButton" onclick="setTool('hand')">Hand Tool</button>
+<button id="textFrameButton" onclick="setTool('textFrame')">Text Tool</button>
 ```
 
 Now that our `index.html` is updated we can update our `onSelectedToolChanged` function in `index.js` to disable the button related to the tool that is selected.
@@ -267,7 +267,7 @@ async function initEditor() {
   SDK.loadEditor();
   window.SDK = SDK;
 
-  await loadDocument(defaultJSON);
+  await load(defaultJSON);
 }
 ```
 
@@ -301,7 +301,7 @@ async function initEditor() {
   SDK.loadEditor();
   window.SDK = SDK;
 
-  await loadDocument(defaultJSON);
+  await load(defaultJSON);
 }
 ```
 

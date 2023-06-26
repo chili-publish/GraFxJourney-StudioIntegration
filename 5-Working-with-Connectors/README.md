@@ -18,14 +18,14 @@ First, we will need to generate a machine on our GraFx environment. You can do t
 We are going to be generating the token on the front-end of our integration, please note that this is not how you should handle this for a production application. You do not want to expose the `client secret` in the JavaScript of your website, if you are going to maintain a secure integration, you should have your front-end integration reach out to a back-end for the token we will generate, or pre-process the page to provide the token. Nonetheless, for educational purposes we will be generating our token via a [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) request when our page loads to use for our GraFx Connectors.
 
 ### Connecting the Connectors
-Now that we have our token, we can actually initialize our media and font connector when we load a document. To do this we will need to add some more logic to our `loadDocument()` function.
+Now that we have our token, we can actually initialize our media and font connector when we load a document. To do this we will need to add some more logic to our `load()` function.
 
 ```javascript
-async function loadDocument(docJSON, authToken) {
+async function load(docJSON, authToken) {
   if (docJSON) {
-    await window.SDK.document.loadDocument(docJSON);
+    await window.SDK.document.load(docJSON);
   } else {
-    await window.SDK.document.loadDocument("{}");
+    await window.SDK.document.load("{}");
   }
 
   if (authToken) {
@@ -49,11 +49,11 @@ There is one last step we need to setup before our connectors work, we need to t
 
 We will add this line at the top of our `loadDocument` function.
 ```javascript
-  const environmentAPI = createEnvironmentBaseURL({type: "production", environment: "ft-nostress"})
+  const environmentAPI = window.SDK.utils.createEnvironmentBaseURL({type: "production", environment: "ft-nostress"})
   window.SDK.configuration.setValue("ENVIRONMENT_API", environmentAPI);
 ```
 
-Before we can set the GraFx Environment API Base URL that our connectors will use to talk to the environment. We thankfully have a helper function called "createEnvironmentBaseURL" that can generate this base API url for us. We will call this function with our environment type, `sandbox` or `production` and then the environment name. (ex: cp-gjd-940).
+Before we can set the GraFx Environment API Base URL that our connectors will use to talk to the environment. We have a helper function in our SDK UtilsController called "createEnvironmentBaseURL" that can help build the Environment API base url for us. We will call this function with our environment type, `sandbox` or `production` and the environment name (ex: cp-gjd-940).
 
 Then we can set the `"ENVIRONMENT_API"` value in our configuration store to be that GraFx Environment Base URL, now our connectors know how to talk to your GraFx Environment.
 

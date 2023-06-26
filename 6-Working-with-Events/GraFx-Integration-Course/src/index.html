@@ -9,11 +9,11 @@
 <body>
   <div style="height: 5vh; display: flex; justify-content: space-evenly; align-items: center;">
     <h1>Hello World</h1>
-    <button id="selectButton" onclick="selectTool()">Select Tool</button>
-    <button id="handButton" onclick="handTool()">Hand Tool</button>
-    <button id="textFrameButton" onclick="textTool()">Text Tool</button>
+    <button id="selectButton" onclick="setTool('select')">Select Tool</button>
+    <button id="handButton" onclick="setTool('hand')">Hand Tool</button>
+    <button id="textFrameButton" onclick="setTool('textFrame')">Text Tool</button>
     <button onclick="addTextFrame()">Add Frame</button>
-    <button onclick="downloadDocument()">Download Document</button>
+    <button onclick="download()">Download Document</button>
   </div>
 
   <div style="height: 90vh" id="studio-editor"></div>
