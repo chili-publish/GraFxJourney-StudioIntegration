@@ -67,9 +67,16 @@ window.downloadDocument = async function() {
   downloadAnchor.click();
 }
 
+window.addTextFrame = async function() {
+  await window.SDK.frame.create("text", 10, 10, 100, 100);
+}
 
 window.setTool = async function(tool) {
   await window.SDK.tool.setTool(tool);
+}
+
+window.setImage = async function(frameName, assetID) {
+  await window.SDK.frames.setImage(frameName, assetID);
 }
 
 const authToken = "<INSERT TOKEN HERE>"

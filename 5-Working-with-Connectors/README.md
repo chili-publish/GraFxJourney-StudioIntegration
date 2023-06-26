@@ -97,7 +97,7 @@ Click on the GraFx Media icon on the left hand panel to load up the available as
 
 Once you have found an asset you want to display in an image frame, you can click the `...` button to bring up the option to view asset details.
 
-![grafx media asset icon](../assets/5-Working-with-Connectors/grafx-asset.png)
+![grafx media asset icon](../assets/5-Working-with-Connectors/media-asset.png)
 
 In the asset details panel, you will see the ID for the asset. Copy this ID, we will use it to tell our GraFx Media connector which asset we want to use for our image frame.
 
@@ -106,14 +106,29 @@ In the asset details panel, you will see the ID for the asset. Copy this ID, we 
 Make note of that asset ID, this is how we will inform our GraFx Media connector which asset we want to use. For this course, we will just create a simple button, that when pressed will replace the image frame on the document with
 
 -- CREATE COURSE 23' --
-We will use asset ``
+For the Studio Integration Course we will use this asset id.
+```
+ba831d4b-af20-467b-a3a3-b2866fda687b
+```
 
 ---
 ##### Setting the asset for an image frame
 Let's create a function to update the image on our document to a new image we provide it. We will be using a [FrameController]() method to find our image frame in the document and then the ConnectorController to update the image.
 
-```javascript
-window.updateImage = async function(frameName, assetID) {
-  window.
-}
+Let's create a button in our `index.html` that when pressed will call the SDK function to update the image frame in our document to the new asset ID we provide.
+
+
+```html
+<button onclick="window.SDK.frames.setImage('image-frame', 'ba831d4b-af20-467b-a3a3-b2866fda687b')">Update Image</button>
 ```
+
+This button will call the `setImage` function of the FrameController and provide it with the two things it needs, the name of the image frame in the document we want to update, and the asset ID we want to update that image to.
+
+##### What if I don't know the name of my image frame?
+There are a couple of options one could use to determine the name of an image frame within their template.
+
+The non-programmatic approach would be to open the template in GraFx Studio, click on the frame, and view (or change) the name in the Frame properties panel.
+
+The programmatic approach would be to either:
+1. Get all frames on the document and find the frame in the JSON where the type is an image you can get all frames by playing in the  JavaScript console of your browser and typing `await window.SDK.frames.getAll()` but this requires some more manual investigation if you have more than 1 image frame on the document.
+1. Use the

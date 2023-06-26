@@ -35,7 +35,7 @@ There is not much to explain here, we are going to create a new file named `defa
 
 `default-doc.js`
 ```javascript
-const defaultJSON = `{\"selectedLayoutId\":\"0\",\"sdkVersion\":\"0.123.0\",\"engineVersion\":\"0.0.37\",\"properties\":{\"type\":\"template\"},\"pages\":[{\"pageId\":\"0\",\"pageNumber\":0,\"frames\":[{\"frameId\":\"1\",\"frameName\":\"Frame 1\",\"frameType\":\"text\",\"constrainProportions\":false,\"textContent\":\"{\\\"textFlow\\\":[{\\\"type\\\":\\\"paragraph\\\",\\\"textAlign\\\":\\\"center\\\"},{\\\"type\\\":\\\"span\\\"},{\\\"type\\\":\\\"text\\\",\\\"content\\\":\\\"GraFx Studio Integration Course\\\"}]}\",\"paddingLeft\":0,\"paddingTop\":0,\"paddingRight\":0,\"paddingBottom\":0,\"numberOfColumns\":1,\"columnGap\":5,\"textDirection\":\"leftToRight\",\"flowDirection\":\"horizontal\",\"verticalAlign\":\"top\",\"textStroke\":false,\"textStrokeWeight\":1,\"textStrokeColor\":0,\"hasClippingPath\":false,\"blendMode\":\"normal\"},{\"frameId\":\"2\",\"frameName\":\"Frame 2\",\"shapeProperties\":{\"enableFill\":true,\"fillColor\":{\"color\":{\"colorType\":\"rgb\",\"r\":217,\"g\":217,\"b\":217},\"usageType\":\"local\"},\"enableStroke\":true,\"strokeWeight\":1,\"strokeColor\":{\"color\":{\"colorType\":\"rgb\",\"r\":0,\"g\":0,\"b\":0},\"usageType\":\"local\"},\"allCornersSame\":true},\"frameType\":\"shape\",\"src\":{\"shapeType\":\"rectangle\",\"cornerRadius\":{\"type\":\"none\"}},\"blendMode\":\"normal\",\"constrainProportions\":false}]}],\"layouts\":[{\"layoutId\":\"0\",\"layoutName\":\"Default\",\"frameProperties\":[{\"frameId\":\"1\",\"x\":16,\"y\":26,\"width\":268,\"height\":54,\"rotationDegrees\":0,\"rotationOriginY\":0,\"scaleX\":1,\"scaleY\":1,\"included\":true,\"fitMode\":\"fill\",\"framePropertiesType\":\"top\",\"minCopyfitting\":0.1,\"maxCopyfitting\":10,\"enableCopyfitting\":true},{\"frameId\":\"2\",\"x\":58,\"y\":99,\"width\":188,\"height\":128,\"rotationDegrees\":0,\"rotationOriginY\":0,\"scaleX\":1,\"scaleY\":1,\"included\":true,\"fitMode\":\"fill\",\"framePropertiesType\":\"top\",\"minCopyfitting\":0.1,\"maxCopyfitting\":10,\"enableCopyfitting\":false}],\"width\":300,\"height\":250,\"childLayouts\":[],\"layoutType\":\"top\",\"frameAnimations\":[{\"frameId\":\"1\",\"from\":0,\"to\":5000,\"basicAnimations\":{}},{\"frameId\":\"2\",\"from\":0,\"to\":5000,\"basicAnimations\":{}}],\"timelineLengthMs\":5000,\"animated\":true}],\"styleKit\":{\"colors\":[],\"characterStyles\":[],\"paragraphStyles\":[],\"fonts\":[]},\"variables\":[],\"connectors\":[{\"id\":\"grafx-media\",\"source\":\"local\",\"url\":\"grafx-media.json\",\"options\":{},\"mappings\":[]},{\"id\":\"grafx-font\",\"source\":\"local\",\"url\":\"grafx-font.json\",\"options\":{},\"mappings\":[]}],\"actions\":[]}`
+const defaultJSON = `{\"selectedLayoutId\":\"0\",\"sdkVersion\":\"0.133.2\",\"engineVersion\":\"0.1.1\",\"properties\":{\"type\":\"template\"},\"pages\":[{\"id\":\"0\",\"number\":0,\"frames\":[{\"id\":\"1\",\"name\":\"banner-text\",\"type\":\"text\",\"constrainProportions\":false,\"textContent\":\"{\\\"textFlow\\\":[{\\\"type\\\":\\\"paragraph\\\",\\\"textAlign\\\":\\\"center\\\"},{\\\"type\\\":\\\"span\\\"},{\\\"type\\\":\\\"text\\\",\\\"content\\\":\\\"Studio Integration Course\\\"}]}\",\"paddingLeft\":0,\"paddingTop\":0,\"paddingRight\":0,\"paddingBottom\":0,\"numberOfColumns\":1,\"columnGap\":5,\"textDirection\":\"leftToRight\",\"flowDirection\":\"horizontal\",\"verticalAlign\":\"top\",\"textStroke\":false,\"textStrokeWeight\":1,\"textStrokeColor\":0,\"hasClippingPath\":false,\"blendMode\":\"normal\"},{\"id\":\"2\",\"name\":\"image-frame\",\"type\":\"image\",\"blendMode\":\"normal\",\"constrainProportions\":false}]}],\"layouts\":[{\"id\":\"0\",\"name\":\"Default\",\"frameProperties\":[{\"id\":\"1\",\"x\":12,\"y\":9,\"width\":278,\"height\":64,\"rotationDegrees\":0,\"rotationOriginY\":0,\"scaleX\":1,\"scaleY\":1,\"included\":true,\"fitMode\":\"fill\",\"type\":\"top\",\"minCopyfitting\":0.1,\"maxCopyfitting\":10,\"enableCopyfitting\":true},{\"id\":\"2\",\"x\":42.25,\"y\":101,\"width\":215.5,\"height\":129,\"rotationDegrees\":0,\"rotationOriginY\":0,\"scaleX\":1,\"scaleY\":1,\"included\":true,\"fitMode\":\"fill\",\"type\":\"top\",\"minCopyfitting\":0.1,\"maxCopyfitting\":10,\"enableCopyfitting\":false}],\"width\":300,\"height\":250,\"childLayouts\":[],\"type\":\"top\",\"frameAnimations\":[{\"id\":\"1\",\"from\":0,\"to\":5000,\"basicAnimations\":{}},{\"id\":\"2\",\"from\":0,\"to\":5000,\"basicAnimations\":{}}],\"timelineLengthMs\":5000,\"animated\":true}],\"stylekit\":{\"colors\":[],\"characterStyles\":[],\"paragraphStyles\":[],\"fonts\":[]},\"variables\":[],\"connectors\":[{\"id\":\"grafx-media\",\"source\":\"local\",\"url\":\"grafx-media.json\",\"options\":{},\"mappings\":[]},{\"id\":\"grafx-font\",\"source\":\"local\",\"url\":\"grafx-font.json\",\"options\":{},\"mappings\":[]}],\"actions\":[]}`
 
 export { defaultJSON }
 ```
@@ -50,7 +50,7 @@ import { defaultJSON } from "./default-doc.js"
 Let's create a function that will take some JSON and load it in to the editor. This will be our first async function since under the hood, we are actually sending a message for the editor to do something, and the editor will response to us with a promise that it will do it, we will wait for that promise to actually happen using the `await` keyword.
 
 ```javascript
-async function load(docJSON) {
+async function loadDocument(docJSON) {
   if (docJSON) {
     await window.SDK.document.load(docJSON);
   } else {
@@ -72,7 +72,7 @@ async function initEditor() {
   SDK.loadEditor();
   window.SDK = SDK;
 
-  await loadTemplate(defaultJSON);
+  await loadDocument(defaultJSON);
 }
 ```
 
@@ -81,12 +81,6 @@ We are simply adding `async` in front of our function and then awaiting the `loa
 Now with the server running our integration page should look something like this
 
 ![Integration with default document loaded](../assets/4-Working-with-Controllers/document-loaded.png)
-
-##### Why does the image frame just say "running"?
-Chances are there is an image frame on the document that looks like this.
-![image frame not loading in editor](../assets/4-Working-with-Controllers/image-frame-loading.png)
-
-It will give you a message like "running" or "couldn't connect" instead of actually showing the image. No worries! This is expected. The reason for this is because the image in the document is accessed through the GraFx Media Connector and we currently have not configured the connector so it doesn't have the proper information to retrieve the image. We will cover this and get the image loading in section 5 - [Working with Connectors](../5-Working-with-Connectors/README.md)
 
 For now, we can safely ignore the "running" message until we hookup the media connector.
 
@@ -143,7 +137,7 @@ This takes a [FrameTypeEnum](https://chili-publish.github.io/studio-sdk/enums/in
 Let's create a simple function that creates a 100x100 text frame at the position `x:10 y:10`.
 ```javascript
 window.addTextFrame = async function() {
-  await window.SDK.frame.addFrame("text", 10, 10, 100, 100);
+  await window.SDK.frame.create("text", 10, 10, 100, 100);
 }
 ```
 
@@ -161,27 +155,24 @@ What if we did not know where and how big we wanted our text box to be? I now pr
 ### Changing Tools
 The [ToolController](https://chili-publish.github.io/studio-sdk/classes/controllers_ToolController.ToolController.html) can allow us to change the current mouse tool.
 
-To change to the text frame tool we can simply expose a function to our window and make a `Text Tool` button. While we are at it, let's include the hand tool and a way to get back to the normal selection tool in our `index.js`
+To change to the text frame tool we can simply expose the SDK function to our window and make a `Text Tool` button that will call our function with the tool name. You can find the names of all the tools `index.js` by clicking on the `ToolType` enum and reading the [SDK page](https://chili-publish.github.io/studio-sdk/enums/index.ToolType.html)
+
+![tool enum sdk documentation page](../assets/4-Working-with-Controllers/tool-enum.png)
+
+So we can add a function to our window that accepts a tool name and calls our SDK function with that tool.
 
 ```javascript
-window.textTool = async function() {
-  await window.SDK.tool.setTextFrameTool();
-}
-
-window.handTool = async function() {
-  await window.SDK.tool.setHandTool();
-}
-
-window.selectTool = async function() {
-  await window.SDK.tool.setSelectTool();
+window.setTool = async function(tool) {
+  await window.SDK.tool.setTool(tool);
 }
 ```
 
-Then we can create our buttons in the `index.html` above our other buttons.
+Then we can create our buttons in the `index.html` above our other buttons and pass in the string name for the tool to our function.
+
 ```html
-<button onclick="selectTool()">Select Tool</button>
-<button onclick="handTool()">Hand Tool</button>
-<button onclick="textTool()">Text Tool</button>
+<button onclick="setTool('select')">Select Tool</button>
+<button onclick="setTool('hand')">Hand Tool</button>
+<button onclick="setTool('textFrame')">Text Tool</button>
 ```
 
 Now on our integration we should have the ability to select our text tool and click then draw a text frame where we would like it. We can also play around with our hand tool and return back to the select.
