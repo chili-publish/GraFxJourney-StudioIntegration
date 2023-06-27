@@ -115,14 +115,19 @@ ba831d4b-af20-467b-a3a3-b2866fda687b
 ##### Setting the asset for an image frame
 Let's create a function to update the image on our document to a new image we provide it. We will be using a [FrameController]() method to find our image frame in the document and then the ConnectorController to update the image.
 
-Let's create a button in our `index.html` that when pressed will call the SDK function to update the image frame in our document to the new asset ID we provide.
+We will start with our `updateImage` function in the `index.js` file
 
+```javascript
 
-```html
-<button onclick="window.SDK.frames.setImage('image-frame', 'ba831d4b-af20-467b-a3a3-b2866fda687b')">Update Image</button>
 ```
 
-This button will call the `setImage` function of the FrameController and provide it with the two things it needs, the name of the image frame in the document we want to update, and the asset ID we want to update that image to.
+Next, we need to create a button in our `index.html` that when pressed will call the SDK function to update the image frame in our document to the new asset ID we provide.
+
+```html
+<button onclick="updateImage('image-frame', 'ba831d4b-af20-467b-a3a3-b2866fda687b')">Update Image</button>
+```
+
+This button will call our `updateImage` function and provide it with the two things it needs, the name of the image frame in the document we want to update, and the asset ID we want to update that image to.
 
 ##### What if I don't know the name of my image frame?
 There are a couple of options one could use to determine the name of an image frame within their template.
