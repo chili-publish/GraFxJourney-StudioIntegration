@@ -12,7 +12,7 @@ Now that we have Node installed the real fun can begin. To begin you can simply 
 
 Next load up you favorite terminal emulation such as "Terminal" on MacOS or "cmd" on Windows and navigate to your newly created folder.
 
-##### Initalizing npm
+##### Initializing npm
 We first need to tell Node Package Manager that our folder is a Node project. This way Node will setup the necessary files and folders to track our project.
 
 All we need to type to do this is
@@ -64,7 +64,7 @@ Our first file will the the index.html file that will hold the HTML code for our
 ```
 
 ### Starting our local server
-Now that we have the Node project initalized, our dependencies installed, and our source code created, we can test that our project is working as intended.
+Now that we have the Node project initialized, our dependencies installed, and our source code created, we can test that our project is working as intended.
 
 We will start our website with this command by navigating to our directory in our terminal and running
 ```sh

@@ -73,10 +73,20 @@ async function initEditor(authToken) {
 Now when we call the `initEditor()` function we need to pass the authentication token for our connectors to use. For your integration, you have a couple different options. To maintain a secure integration, you should ideally have the front-end of your integration reach out to a back-end for the token we will generate, or pre-process the page to provide the token.
 <!-- TODO(link to auth documentation on the GraFx website) -->
 
+
+```bash
+curl --location 'https://login.chiligrafx.com/oauth/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'grant_type=client_credentials' \
+--data-urlencode 'client_id=' \
+--data-urlencode 'client_secret=' \
+--data-urlencode 'audience=https://chiligrafx.com'
+```
+
 For the CREATE 2023 Studio integration training, we will all be connecting to a specific environment to load the asset provided in the demo document so I will provide you with an access token.
 
 ```
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InIzTzViUFFqV2pBWjNsd1pLd1FSaSJ9
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InIzTzViUFFqV2pBWjNsd1pLd1FSaSJ9.eyJpc3MiOiJodHRwczovL2xvZ2luLmNoaWxpZ3JhZnguY29tLyIsInN1YiI6InIxU241b04zVDAyZnE3NFdNWHZRWGNjUXRadnlDTU05QGNsaWVudHMiLCJhdWQiOiJodHRwczovL2NoaWxpZ3JhZnguY29tIiwiaWF0IjoxNjg4MDU4NTkwLCJleHAiOjE2ODgxNDQ5OTAsImF6cCI6InIxU241b04zVDAyZnE3NFdNWHZRWGNjUXRadnlDTU05Iiwic2NvcGUiOiJmb250Omxpc3QgZm9udDpyZWFkIG1lZGlhOmxpc3QgbWVkaWE6cmVhZCBteXByb2plY3Q6bGlzdCBteXByb2plY3Q6cmVhZCBvdXRwdXQ6YW5pbWF0ZWQgb3V0cHV0OnN0YXRpYyB0ZW1wbGF0ZV9jb2xsZWN0aW9uOmxpc3QgdGVtcGxhdGVfY29sbGVjdGlvbjpyZWFkIHRlbXBsYXRlOmxpc3QgdGVtcGxhdGU6cmVhZCIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.WFgN5_CPnxxr8qlYKSKfurPJXoQFJahqRjXfy9um6Enxo7pGj1w3loElkikfXN-EScfH5vwoVBAwGYQPS7iGuFk_sFGwy3Opsl8Cbef7CQeM3OIxpm5930y03bSaAYvlSTUDPdiohD1IPSaYNqXM2QPAle9bZDQVZOyBIQ5rpDq8nTcydk6xXJLYtx0rQbwU783nR7i-KVZl5XC4_EykPJnF3OUHKczliGvULYmyBvITW7-nI5ur5Q4S08spmYk3pUOolu0ZnQ_t-vCJh6coK2ndjQubqDMm15fPogUwwyJG7RfAOfCct4IPmTj0RzoJlNRXzmMjECVRZcoTgpOIzA
 ```
 
 At the bottom of our `index.js` file we can create a variable to hold this token and then pass the variable when we call `initEditor`
@@ -85,7 +95,6 @@ At the bottom of our `index.js` file we can create a variable to hold this token
 const authToken = "<INSERT TOKEN HERE>"
 initEditor(authToken);
 ```
-
 
 ### Actually loading an image frame
 
