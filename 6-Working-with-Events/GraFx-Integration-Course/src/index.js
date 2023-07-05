@@ -75,8 +75,9 @@ window.setTool = async function(tool) {
   await window.SDK.tool.setTool(tool);
 }
 
-window.setImage = async function(frameName, assetID) {
-  await window.SDK.frames.setImage(frameName, assetID);
+window.updateImage = async function(frameName, assetID) {
+  const frameID = (await window.SDK.frame.getByName(frameName)).parsedData.id
+  await window.SDK.frame.setImageFromConnector(frameID, 'grafx-media', assetID);
 }
 
 const authToken = "<INSERT TOKEN HERE>"

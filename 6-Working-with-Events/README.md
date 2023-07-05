@@ -287,7 +287,7 @@ async function initEditor() {
         document.getElementById("textFrameButton"),
       ]
 
-      for (const element in buttonElements) {
+      for (const element of buttonElements) {
         if (element.id.includes(tool)) {
           element.disabled = true;
         }

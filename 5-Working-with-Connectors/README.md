@@ -70,24 +70,10 @@ async function initEditor(authToken) {
 }
 ```
 
-Now when we call the `initEditor()` function we need to pass the authentication token for our connectors to use. For your integration, you have a couple different options. To maintain a secure integration, you should ideally have the front-end of your integration reach out to a back-end for the token we will generate, or pre-process the page to provide the token.
+Now when we call the `initEditor()` function we need to pass the authentication token for our connectors to use. For your integration, you have a couple different options. To maintain a secure integration, you should ideally have the front-end of your integration reach out to a back-end for the token we will generate, or pre-process the page to provide the token. For this course, we will take the easiest path to getting a token for exploration and building our integration.
 <!-- TODO(link to auth documentation on the GraFx website) -->
 
 
-```bash
-curl --location 'https://login.chiligrafx.com/oauth/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'grant_type=client_credentials' \
---data-urlencode 'client_id=' \
---data-urlencode 'client_secret=' \
---data-urlencode 'audience=https://chiligrafx.com'
-```
-
-For the CREATE 2023 Studio integration training, we will all be connecting to a specific environment to load the asset provided in the demo document so I will provide you with an access token.
-
-```
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InIzTzViUFFqV2pBWjNsd1pLd1FSaSJ9.eyJpc3MiOiJodHRwczovL2xvZ2luLmNoaWxpZ3JhZnguY29tLyIsInN1YiI6InIxU241b04zVDAyZnE3NFdNWHZRWGNjUXRadnlDTU05QGNsaWVudHMiLCJhdWQiOiJodHRwczovL2NoaWxpZ3JhZnguY29tIiwiaWF0IjoxNjg4MDU4NTkwLCJleHAiOjE2ODgxNDQ5OTAsImF6cCI6InIxU241b04zVDAyZnE3NFdNWHZRWGNjUXRadnlDTU05Iiwic2NvcGUiOiJmb250Omxpc3QgZm9udDpyZWFkIG1lZGlhOmxpc3QgbWVkaWE6cmVhZCBteXByb2plY3Q6bGlzdCBteXByb2plY3Q6cmVhZCBvdXRwdXQ6YW5pbWF0ZWQgb3V0cHV0OnN0YXRpYyB0ZW1wbGF0ZV9jb2xsZWN0aW9uOmxpc3QgdGVtcGxhdGVfY29sbGVjdGlvbjpyZWFkIHRlbXBsYXRlOmxpc3QgdGVtcGxhdGU6cmVhZCIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.WFgN5_CPnxxr8qlYKSKfurPJXoQFJahqRjXfy9um6Enxo7pGj1w3loElkikfXN-EScfH5vwoVBAwGYQPS7iGuFk_sFGwy3Opsl8Cbef7CQeM3OIxpm5930y03bSaAYvlSTUDPdiohD1IPSaYNqXM2QPAle9bZDQVZOyBIQ5rpDq8nTcydk6xXJLYtx0rQbwU783nR7i-KVZl5XC4_EykPJnF3OUHKczliGvULYmyBvITW7-nI5ur5Q4S08spmYk3pUOolu0ZnQ_t-vCJh6coK2ndjQubqDMm15fPogUwwyJG7RfAOfCct4IPmTj0RzoJlNRXzmMjECVRZcoTgpOIzA
-```
 
 At the bottom of our `index.js` file we can create a variable to hold this token and then pass the variable when we call `initEditor`
 
@@ -114,10 +100,6 @@ In the asset details panel, you will see the ID for the asset. Copy this ID, we 
 
 Make note of that asset ID, this is how we will inform our GraFx Media connector which asset we want to use. For this course, we will just create a simple button, that when pressed will replace the image frame on the document with
 
--- CREATE COURSE 23' --
-For the Studio Integration Course we will use this asset id.
-```
-ba831d4b-af20-467b-a3a3-b2866fda687b
 ```
 
 ---
@@ -127,22 +109,16 @@ Let's create a function to update the image on our document to a new image we pr
 We will start with our `updateImage` function in the `index.js` file
 
 ```javascript
-
+window.updateImage = async function(frameName, assetID) {
+  const frameID = (await window.SDK.frame.getByName(frameName)).parsedData.id
+  await window.SDK.frame.setImageFromConnector(frameID, 'grafx-media', assetID);
+}
 ```
 
 Next, we need to create a button in our `index.html` that when pressed will call the SDK function to update the image frame in our document to the new asset ID we provide.
 
 ```html
-<button onclick="updateImage('image-frame', 'ba831d4b-af20-467b-a3a3-b2866fda687b')">Update Image</button>
+<button onclick="updateImage('image-frame', 'YOUR ASSET ID')">Update Image</button>
 ```
 
 This button will call our `updateImage` function and provide it with the two things it needs, the name of the image frame in the document we want to update, and the asset ID we want to update that image to.
-
-##### What if I don't know the name of my image frame?
-There are a couple of options one could use to determine the name of an image frame within their template.
-
-The non-programmatic approach would be to open the template in GraFx Studio, click on the frame, and view (or change) the name in the Frame properties panel.
-
-The programmatic approach would be to either:
-1. Get all frames on the document and find the frame in the JSON where the type is an image you can get all frames by playing in the  JavaScript console of your browser and typing `await window.SDK.frames.getAll()` but this requires some more manual investigation if you have more than 1 image frame on the document.
-1. Use the
