@@ -13,7 +13,7 @@ A connector in the literal sense is an implementation of a set of capabilities a
 ### Authentication
 The first thing we need to do is actually generate an authentication token. We need to do this because the GraFx Environment API that actually has the fonts and assets requires requests to be authenticated and authorized via a token. Therefore, we need to provide our GraFx-Media and GraFx-Fonts connector with our token so they can pull the required fonts and assets.
 
-First, you will need to create a machine on your GraFx environment so that you have the required credentials to generate the authentication token. You can do that following [this guide](#good-luck). Please note the `client id` and `client secret` you are provided when doing this, we will use them to generate our token at a later step.
+First, you will need to create a machine on your GraFx environment so that you have the required credentials to generate the authentication token. You can do that following [this guide](https://docs.chiligrafx.com/CHILI-GraFx/guides/integrations/). Please note the `client id` and `client secret` you are provided when doing this, we will use them to generate our token at a later step.
 
 ### Connecting the Connectors
 Now that we have our token, we can actually initialize our media and font connector when we load a document. To do this we will need to add some more logic to our `loadDocument()` function.
@@ -71,8 +71,20 @@ async function initEditor(authToken) {
 ```
 
 Now when we call the `initEditor()` function we need to pass the authentication token for our connectors to use. For your integration, you have a couple different options. To maintain a secure integration, you should ideally have the front-end of your integration reach out to a back-end for the token we will generate, or pre-process the page to provide the token. For this course, we will take the easiest path to getting a token for exploration and building our integration.
-<!-- TODO(link to auth documentation on the GraFx website) -->
 
+You can find some code examples for generating an auth token on the [integration guide](https://docs.chiligrafx.com/CHILI-GraFx/guides/integrations/#step-4-generating-an-access-token). The easiest method is to use a cURL request in your favorite terminal emulator. You can simply fill in this cURL request template with your integration client id and client secret.
+
+```sh
+curl --location \
+--request POST 'https://integration-login.chiligrafx.com/oauth/token' \
+--header 'content-type: application/x-www-form-urlencoded' \
+--data-urlencode 'audience=https://chiligrafx.com' \
+--data-urlencode 'grant_type=client_credentials' \
+--data-urlencode 'client_id=<CLIENT_ID>' \
+--data-urlencode 'client_secret=<CLIENT_SECRET>'
+```
+
+You can then copy the `access_token` portion of your JSON response and use it within your integration.
 
 
 At the bottom of our `index.js` file we can create a variable to hold this token and then pass the variable when we call `initEditor`
